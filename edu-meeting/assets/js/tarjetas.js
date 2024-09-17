@@ -76,7 +76,7 @@ const setPokemonTarjetaDOM = (TarjetaPokemon) => {
                   <div class="price">
                     <span>${tipoFinal.toUpperCase()}</span>
                   </div>
-                  <a class="cartica" href="meeting-details.html"><img src="${TarjetaPokemon.results[i].data.sprites.front_default}" alt="${TarjetaPokemon.results[i].name}"></a>
+                  <a class="cartica" href="meeting-details.html"><img src="${TarjetaPokemon.results[i].data.sprites.versions['generation-v']['black-white'].animated.front_default}" alt="${TarjetaPokemon.results[i].name}"></a>
                 </div>
                 <div class="down-content">
                   <div class="date">

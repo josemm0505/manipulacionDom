@@ -24,7 +24,7 @@ const setPokemonAleatorioDOM = (AleatorioPokemon) => {
         let movimientos=AleatorioPokemon.results[i].data.moves;
         let movimientosFinal=movimientos.map(movimiento => movimiento.move.name).join(', ');
         html = html + `
-                <div class="item" style="height: 300px;">
+                <div class="item" style="height: 300px">
               <div class="icon">
                 <img src="${AleatorioPokemon.results[i].data.sprites.front_default}" alt="" style="width: 100px; height: 100px;" class="d-block mx-auto">
               </div>
