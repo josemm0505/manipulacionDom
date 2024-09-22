@@ -38,6 +38,23 @@ const setPokemonAleatorioDOM = (AleatorioPokemon) => {
     }
     $divAleatorio.innerHTML = html;
     $($divAleatorio).owlCarousel({
+        loop: true, // Habilita el loop infinito
+        margin: 10,
+        nav: true, // Habilita la navegación manual
+        autoplay: true, // Habilita el movimiento automático
+        autoplayTimeout: 3000, // Intervalo de tiempo en milisegundos (3 segundos)
+        autoplayHoverPause: true, // Pausa el carrusel si el mouse pasa por encima
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 2
+            },
+            1000: {
+                items: 3
+            }
+        }
 
     });
 

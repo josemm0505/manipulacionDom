@@ -56,43 +56,69 @@ document.getElementById('siguiente').addEventListener('click', (event) => {
 
 //Poner Tarjetas
 const setPokemonTarjetaDOM = (TarjetaPokemon) => {
-    let $divTarjeta = document.querySelector('.tarjeta');
-    $($divTarjeta).trigger('destroy.tarjeta');
-    let html = '';
-    $divTarjeta.innerHTML = html;
+  let $divTarjeta = document.querySelector('.tarjeta');
+  $divTarjeta.innerHTML = '';
 
+  let html = '';
 
-    for (let i = 0; i < TarjetaPokemon.results.length; i++) {
-        let habilidades=TarjetaPokemon.results[i].data.abilities;
-        let habilidadesFinal=habilidades.map(habilidad => habilidad.ability.name).join(', ');
-        let movimientos=TarjetaPokemon.results[i].data.moves;
-        let movimientosFinal=movimientos.map(movimiento => movimiento.move.name).join(', ');
-        let tipo=TarjetaPokemon.results[i].data.types;
-        let tipoFinal=tipo.map(tipo => tipo.type.name).join(', ');
-        html = html + `
-            <div class="col-lg-3">
-              <div class="meeting-item">
-                <div class="thumb">
-                  <div class="price">
-                    <span>${tipoFinal.toUpperCase()}</span>
-                  </div>
-                  <a class="cartica" href="meeting-details.html"><img src="${TarjetaPokemon.results[i].data.sprites.versions['generation-v']['black-white'].animated.front_default}" alt="${TarjetaPokemon.results[i].name}"></a>
+  for (let i = 0; i < TarjetaPokemon.results.length; i++) {
+      let habilidades = TarjetaPokemon.results[i].data.abilities;
+      let habilidadesFinal = habilidades.map(habilidad => habilidad.ability.name).join(', ');
+      let movimientos = TarjetaPokemon.results[i].data.moves;
+      let movimientosFinal = movimientos.map(movimiento => movimiento.move.name).join(', ');
+      let tipo = TarjetaPokemon.results[i].data.types;
+      let tipoFinal = tipo.map(tipo => tipo.type.name).join(', ');
+
+      // Generar HTML para cada tarjeta de Pokémon
+      html += `
+          <div class="col-lg-3">
+            <div class="meeting-item">
+              <div class="thumb">
+                <div class="price">
+                  <span>${tipoFinal.toUpperCase()}</span>
                 </div>
-                <div class="down-content">
-                  <div class="date">
-                    <h6>XP<span>${TarjetaPokemon.results[i].data.base_experience}</span></h6>
-                  </div>
-                  <a href="meeting-details.html"><h4>${TarjetaPokemon.results[i].name.toUpperCase()}</h4></a>
-                  <h6>Habilidades:</h6>
-                  <p>${habilidadesFinal.toUpperCase()}</p>
+                <a class="cartica" href="meeting-details.html">
+                  <img 
+                    id="pokemon-img-${i}" 
+                    src="${TarjetaPokemon.results[i].data.sprites.versions['generation-v']['black-white'].animated.front_default}" 
+                    alt="${TarjetaPokemon.results[i].name}" 
+                    class="img-pokemon"
+                    style="width: 100px; height: 100px;"
+                    >
+                </a>
+              </div>
+              <div class="down-content">
+                <div class="date">
+                  <h6>XP<span>${TarjetaPokemon.results[i].data.base_experience}</span></h6>
                 </div>
+                <a href="meeting-details.html"><h4>${TarjetaPokemon.results[i].name.toUpperCase()}</h4></a>
+                <h6>Habilidades:</h6>
+                <p>${habilidadesFinal.toUpperCase()}</p>
               </div>
             </div>
-        `;
-    }
-    $divTarjeta.innerHTML = html;
-    $($divTarjeta).tarjeta({
+          </div>
+      `;
+  }
 
-    });
+  // Insertar el HTML generado
+  $divTarjeta.innerHTML = html;
 
+  // Agregar eventos de mouseover y mouseout para cambiar la imagen
+  for (let i = 0; i < TarjetaPokemon.results.length; i++) {
+      const pokemonImage = document.getElementById(`pokemon-img-${i}`);
+      const defaultImage = TarjetaPokemon.results[i].data.sprites.versions['generation-v']['black-white'].animated.front_default;
+      const hoverImage = TarjetaPokemon.results[i].data.sprites.versions['generation-v']['black-white'].animated.front_shiny;
+
+      // Evento para cambiar la imagen cuando el mouse está sobre la imagen
+      pokemonImage.addEventListener('mouseover', () => {
+          if (hoverImage) {
+              pokemonImage.src = hoverImage;
+          }
+      });
+
+      // Evento para restaurar la imagen cuando el mouse sale
+      pokemonImage.addEventListener('mouseout', () => {
+          pokemonImage.src = defaultImage;
+      });
+  }
 };
